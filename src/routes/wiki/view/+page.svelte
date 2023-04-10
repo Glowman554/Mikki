@@ -10,8 +10,8 @@
 
 	let id = '';
 	let data = {
-		page_title: '',
-		page_text: ''
+		name: '',
+		text: ''
 	};
 
 	onMount(async () => {

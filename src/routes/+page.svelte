@@ -18,7 +18,7 @@
 		data = [];
 		if (searchInput !== '') {
 			oldData.forEach((element) => {
-				if (element.page_title.toLowerCase().includes(searchInput.toLowerCase())) {
+				if (element.name.toLowerCase().includes(searchInput.toLowerCase())) {
 					data = [...data, element];
 				}
 			});

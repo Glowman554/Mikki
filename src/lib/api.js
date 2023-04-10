@@ -1,13 +1,13 @@
 import { api_call } from './thorax';
 
-export async function wiki_create(page_title, page_text) {
+export async function wiki_create(name, text) {
 	const res = await api_call('/api/wiki/create', undefined, {
 		method: 'POST',
 		body: JSON.stringify({
 			id: -1,
-			name: page_title,
-			text: page_text,
-			username: 'glowman554' // TODO
+			name: name,
+			text: text,
+			username: localStorage.getItem("user")
 		})
 	});
 	let data = await res.text();
@@ -32,30 +32,18 @@ export async function wiki_get_download(page_id) {
 	throw new Error('no');
 }
 
-export async function wiki_edit(token, page_id, page_title, page_text) {
-	var page_title_encoded = btoa(
-		encodeURIComponent(process_escapes(page_title)).replace(/%0[aA]/g, '\n')
-	);
-	var page_text_encoded = btoa(
-		encodeURIComponent(process_escapes(page_text)).replace(/%0[aA]/g, '\n')
-	);
-
-	const res = await fetch(
-		base_api +
-			'/wiki/page/edit?token=' +
-			token +
-			'&page_id=' +
-			page_id +
-			'&page_title=' +
-			page_title_encoded,
-		{
-			method: 'POST',
-			body: page_text_encoded
-		}
-	);
+export async function wiki_edit(page_id, name, text) {
+	const res = await api_call('/api/wiki/update', undefined, {
+		method: 'POST',
+		body: JSON.stringify({
+			id: page_id,
+			name: name,
+			text: text,
+			username: localStorage.getItem("user")
+		})
+	});
 	let data = await res.text();
-	throw_if_error_txt(data);
-	return process_response(data);
+	return data;
 }
 
 export async function wiki_list() {

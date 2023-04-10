@@ -1,12 +1,13 @@
 <script>
-	import { get_api_token, has_valid_token, wiki_edit, wiki_get } from '$lib/api.js';
+	import { wiki_edit, wiki_get } from '$lib/api.js';
 	import { redirect, toBase64 } from '$lib/helper.js';
 	import { onMount } from 'svelte';
+	import { initialize, logout, login } from '$lib/thorax.js';
 
 	let id = '';
 	let page = {
-		page_title: '',
-		page_text: ''
+		name: '',
+		text: ''
 	};
 
 	onMount(() => {
@@ -20,17 +21,17 @@
 	let disabled = '';
 
 	const save = () => {
-		if (page.page_title !== '') {
-			has_valid_token().then((result) => {
-				if (!result) {
+		if (page.name !== '') {
+			initialize().then((user) => {
+				if (!user) {
 					alert('Sie müssen eingeloggt sein, um zu speichern.');
 					return;
 				}
-				if (!result) {
+				if (!user.admin) {
 					alert('Sie müssen Wiki Editor sein um diese Seite zu bearbeiten.');
 					return;
 				}
-				wiki_edit(get_api_token(), id, page.page_title, page.page_text)
+				wiki_edit(page.id, page.name, page.text)
 					.then(() => {
 						disabled = 'disabled';
 						redirect('/');
@@ -68,7 +69,7 @@
 					`![${element.files[0].name}](${res})\n` +
 					textarea.value.slice(textarea.selectionStart);
 				textarea.value = tmp;
-				page.page_text = tmp;
+				page.text = tmp;
 				textarea.focus();
 
 				delete element.files;
@@ -83,8 +84,8 @@
 
 <body>
 	<h2>Edit Page</h2>
-	<input type="text" placeholder="titel" bind:value={page.page_title} />
-	<textarea id="editor" placeholder="text" resi bind:value={page.page_text} />
+	<input type="text" placeholder="titel" bind:value={page.name} />
+	<textarea id="editor" placeholder="text" resi bind:value={page.text} />
 	<button type="submit" on:click={save} {disabled}>Speichern</button>
 	<button onclick="document.getElementById('uploaded_picture').click();">Bild hohchladen</button>
 
