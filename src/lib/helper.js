@@ -47,7 +47,7 @@ export function run_update_notifier() {
 	// window.commit_sha = "bla";
 	if (window.__TAURI__ && window.commit_sha && navigator.onLine) {
 		console.log('Checking for updates...');
-		fetch('https://api.github.com/repos/NickRTR/Mikki/commits/master', {
+		fetch('https://api.github.com/repos/Glowman554/Mikki/commits/master', {
 			method: 'GET',
 			headers: {
 				accept: 'application/vnd.github.VERSION.sha'
@@ -61,7 +61,7 @@ export function run_update_notifier() {
 
 				if (window.remote_commit_sha != window.commit_sha) {
 					toast.push(
-						"<a style='color: white; text-decoration: none;' href='https://github.com/NickRTR/Mikki/releases'>Neue version verfügbar</a>",
+						"<a style='color: white; text-decoration: none;' href='https://github.com/Glowman554/Mikki/releases'>Neue version verfügbar</a>",
 						{
 							theme: {
 								'--toastBackground': 'red',
