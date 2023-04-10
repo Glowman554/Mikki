@@ -17,7 +17,6 @@
 		{ title: 'Log', path: '/wiki/changes' },
 		{ title: 'Einstellungen', path: '/settings' },
 		{ title: 'Login', path: '/account/login' },
-		{ title: 'Registrieren', path: '/account/create' }
 	];
 
 	onMount(async () => {
