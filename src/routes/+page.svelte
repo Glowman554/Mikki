@@ -31,10 +31,10 @@
 		let checked = document.getElementById(id).checked;
 
 		data.forEach(async (element) => {
-			if (element.page_id === id) {
+			if (element.id === id) {
 				if (checked) {
 					const res = await wiki_get(id, data);
-					element['text'] = res.page_text;
+					element['text'] = res.text;
 				} else {
 					delete element.text;
 				}
@@ -45,7 +45,7 @@
 </script>
 
 <svelte:head>
-	<title>Mikki</title>
+	<title>Wiki</title>
 </svelte:head>
 
 <body>
@@ -59,21 +59,17 @@
 			<input
 				type="checkbox"
 				class="toggle"
-				id={page.page_id}
+				id={page.id}
 				on:change={() => {
-					render(page.page_id);
+					render(page.id);
 				}}
 			/>
-			<label for={page.page_id}>▶︎</label>
-			<a href="/wiki/view#{page.page_id}" id={page.page_title} data-sveltekit-prefetch
-				>{page.page_title}</a
-			>
+			<label for={page.id}>▶︎</label>
+			<a href="/wiki/view#{page.id}" id={page.name} data-sveltekit-prefetch>{page.name}</a>
 			<span
 				title="link kopieren"
 				on:click={() => {
-					copyToClipboard(
-						(window.__TAURI__ ? weburl : window.origin) + '/wiki/view#' + page.page_id
-					);
+					copyToClipboard((window.__TAURI__ ? weburl : window.origin) + '/wiki/view#' + page.id);
 				}}>📌</span
 			>
 		</div>

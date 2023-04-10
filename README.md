@@ -1,6 +1,6 @@
-# Wikki - Assembler Wiki
+# Wiki - Assembler Wiki
 
-Wikki ist ein Wiki, erstellt um die Assemblerprogrammierung im Schulunterricht zu dokumentieren.
+Wiki ist ein Wiki, erstellt um die Assemblerprogrammierung im Schulunterricht zu dokumentieren.
 
 ## Features:
 

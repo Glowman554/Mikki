@@ -78,7 +78,7 @@
 </script>
 
 <svelte:head>
-	<title>Mikki - Bearbeiten</title>
+	<title>Wiki - Bearbeiten</title>
 </svelte:head>
 
 <body>

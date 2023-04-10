@@ -44,7 +44,7 @@
 </script>
 
 <svelte:head>
-	<title>Mikki - Login</title>
+	<title>Wiki - Login</title>
 </svelte:head>
 
 <body>

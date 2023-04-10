@@ -61,7 +61,7 @@ export function run_update_notifier() {
 
 				if (window.remote_commit_sha != window.commit_sha) {
 					toast.push(
-						"<a style='color: white; text-decoration: none;' href='https://github.com/Mik-Wiki/Mikki/releases'>Neue version verfügbar</a>",
+						"<a style='color: white; text-decoration: none;' href='https://github.com/NickRTR/Mikki/releases'>Neue version verfügbar</a>",
 						{
 							theme: {
 								'--toastBackground': 'red',

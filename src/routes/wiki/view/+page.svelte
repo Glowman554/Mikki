@@ -1,9 +1,7 @@
 <script>
-	import {
-		get_api_token,
+	import {		
 		wiki_delete,
 		wiki_get,
-		has_valid_token,
 		wiki_get_download
 	} from '$lib/api';
 	import { dateToString, redirect, render_graph } from '$lib/helper.js';
@@ -30,7 +28,7 @@
 			if (await confirm('Seite löschen? Es gibt kein zurück mehr!')) {
 				if (result) {
 					wiki_delete(get_api_token(), data.page_id).then(() => {
-						window.location.href = '/';
+						redirect("/")
 					});
 				} else {
 					alert("You don't have permission to delete this wiki page");
@@ -51,16 +49,16 @@
 </script>
 
 <svelte:head>
-	<title>Mikki - {data.page_title}</title>
+	<title>Wiki - {data.name}</title>
 </svelte:head>
 
 <body>
 	<main>
 		<nav>
 			<div class="info">
-				<h2>Titel: {data.page_title}</h2>
-				<p>Erstellt: {dateToString(data.page_created)}</p>
-				<p>Bearbeitet: {dateToString(data.page_edited)}</p>
+				<h2>Titel: {data.name}</h2>
+				<!-- <p>Erstellt: {dateToString(data.page_created)}</p>
+				<p>Bearbeitet: {dateToString(data.page_edited)}</p> -->
 			</div>
 
 			<div class="buttons">
@@ -69,16 +67,16 @@
 					alt="edit"
 					title="Editieren"
 					on:click={() => {
-						redirect('/wiki/edit#' + data.page_id);
+						redirect('/wiki/edit#' + data.id);
 					}}
 				/>
 				<img src="/trash.svg" alt="delete" on:click={deleteWiki} title="Löschen" />
 			</div>
 		</nav>
 		<hr />
-		{#if data.page_text}
+		{#if data.text}
 			<div style="overflow-x: auto;">
-				<SvelteMarkdown source={data.page_text} on:parsed={render_graph} />
+				<SvelteMarkdown source={data.text} on:parsed={render_graph} />
 			</div>
 		{:else}
 			<p>Fetching Data</p>

@@ -1,26 +1,27 @@
 <script>
-	import { get_api_token, has_valid_token, wiki_create } from '$lib/api.js';
+	import { wiki_create } from '$lib/api.js';
 	import { redirect, toBase64 } from '$lib/helper.js';
+	import { initialize } from '$lib/thorax.js';
 
 	let title = '';
 	let text = '';
 
 	const save = () => {
 		if (title !== '') {
-			has_valid_token().then(async (result) => {
-				if (!result) {
+			initialize().then(async (user) => {
+				if (!user) {
 					alert('Sie müssen eingeloggt sein, um zu speichern.');
 					return;
 				}
-				if (!result) {
+				if (!user.admin) {
 					alert('Sie müssen Wiki Editor sein um diese Seite zu bearbeiten.');
 					return;
 				}
-				let res = await wiki_create(get_api_token(), title, text).catch((err) => {
+				let res = await wiki_create(title, text).catch((err) => {
 					alert('Ups, die Datei konnte nicht gespeichert werden! Vielleicht ist sie zu groß?');
 				});
 				// window.location.href = "/wiki/view#" + res.page_id;
-				redirect('/wiki/view#' + res.page_id);
+				redirect('/');
 			});
 		} else {
 			alert('Der Titel darf nicht leer sein.');
@@ -61,7 +62,7 @@
 </script>
 
 <svelte:head>
-	<title>Mikki - Erstellen</title>
+	<title>Wiki - Erstellen</title>
 </svelte:head>
 
 <body>

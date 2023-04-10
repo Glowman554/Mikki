@@ -1,14 +1,9 @@
 <script>
-	import {
-		wiki_cache,
-		get_api_token,
-		has_valid_token,
-		get_account_info,
-		account_chpasswd
-	} from '$lib/api';
+	import { wiki_cache } from '$lib/api';
 	import { onMount } from 'svelte';
 	import { tweened } from 'svelte/motion';
 	import { cubicOut } from 'svelte/easing';
+	import { initialize } from '$lib/thorax.js';
 
 	const progress = tweened(0, {
 		duration: 400,
@@ -22,24 +17,16 @@
 	let always_update_cache = false;
 
 	let editor = false;
-	let logged_in = false;
-
-	let passwordInput;
-	let showPassword = false;
 
 	onMount(async () => {
 		autocache = localStorage.getItem('auto_cache') == 'true' ? true : false;
 		always_update_cache = localStorage.getItem('page_last_cache') == '-1';
 
-		if (get_api_token()) {
-			if (await has_valid_token(get_api_token())) {
-				editor = (await get_account_info(get_api_token())).editor;
-				logged_in = true;
-			} else {
-				localStorage.removeItem('token');
-				location.reload();
+		initialize().then((user) => {
+			if (user) {
+				editor = user.admin;
 			}
-		}
+		});
 	});
 
 	const start_cache = async () => {
@@ -51,20 +38,10 @@
 		cacheDone = true;
 		progress.set(0);
 	};
-
-	async function update_password() {
-		console.log(passwordInput);
-		if (await confirm('Wollen sie wirklich ihr password aendern?')) {
-			account_chpasswd(passwordInput).then((res) => {
-				console.log(res);
-				location.reload();
-			});
-		}
-	}
 </script>
 
 <svelte:head>
-	<title>Mikki - Einstellungen</title>
+	<title>Wiki - Einstellungen</title>
 </svelte:head>
 
 <body>
@@ -125,35 +102,7 @@
 				>
 			{/if}
 		</div>
-		<div class="change-password">
-			{#if logged_in}
-				<form on:submit|preventDefault={update_password} autocomplete="off">
-					<label for="password">Neues Passwort:</label><br />
-					<div class="password">
-						<input
-							type="password"
-							id="password"
-							name="password"
-							placeholder="Passwort"
-							bind:value={passwordInput}
-						/>
-						<input
-							type="checkbox"
-							id="togglePassword"
-							class:show={showPassword}
-							bind:checked={showPassword}
-							on:change={() => {
-								document.querySelector('#password').type = showPassword ? 'text' : 'password';
-							}}
-						/>
-						<label class="viewPasswordLabel" for="togglePassword"
-							><img src="/showPassword.svg" alt="show" /></label
-						>
-					</div>
-					<button type="submit">Password ändern</button>
-				</form>
-			{/if}
-		</div>
+
 		{#if editor}
 			<p>Sie haben Editor Rechte.</p>
 		{:else}

@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	import { login_account, get_api_token, has_valid_token, delete_account } from '$lib/api.js';
+	import { initialize, logout, login } from '$lib/thorax.js';
 
 	let emailInput;
 	let passwordInput;
@@ -8,33 +8,14 @@
 	let logged_in = false;
 
 	onMount(async () => {
-		if (get_api_token()) {
-			if (!(await has_valid_token(get_api_token()))) {
-				localStorage.removeItem('token');
-				location.reload();
-			} else {
+		initialize().then((user) => {
+			if (user) {
 				logged_in = true;
 			}
-		}
+		});
 	});
 
 	let showPassword = false;
-
-	async function login() {
-		var login = {
-			username: emailInput,
-			password: passwordInput
-		};
-		console.log(login);
-		login_account(login).then((r) => {
-			window.location = '/';
-		});
-	}
-
-	function logout() {
-		localStorage.removeItem('token');
-		location.reload();
-	}
 
 	async function _delete() {
 		if (await confirm('Account löschen? Es gibt kein zurück mehr!')) {
@@ -45,7 +26,7 @@
 </script>
 
 <svelte:head>
-	<title>Mikki - Login</title>
+	<title>Wiki - Login</title>
 </svelte:head>
 
 <body>
@@ -55,10 +36,10 @@
 		<button on:click={logout}>Ausloggen</button>
 		<button on:click={_delete}>Account löschen</button>
 	{:else}
-		<form on:submit|preventDefault={login} autocomplete="off">
+		<form on:submit|preventDefault={login(emailInput, passwordInput)} autocomplete="off">
 			<label for="email">E-mail: </label><br />
 			<input
-				type="email"
+				type="text"
 				id="email"
 				name="email"
 				placeholder="email@email.com"
@@ -120,7 +101,7 @@
 		border-color: var(--accent);
 	}
 
-	input[type='email'] {
+	input[type='text'] {
 		width: 300px;
 	}
 

@@ -11,7 +11,7 @@
 </script>
 
 <svelte:head>
-	<title>Mikki - Log</title>
+	<title>Wiki - Log</title>
 </svelte:head>
 
 <body>
