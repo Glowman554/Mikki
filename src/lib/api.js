@@ -63,10 +63,7 @@ export async function wiki_delete(token, page_id) {
 
 export async function wiki_changelog() {
 	if (navigator.onLine) {
-		const res = await fetch(base_api + '/wiki/page/changelog');
-		let data = await res.text();
-		throw_if_error_txt(data);
-		return process_response(data);
+		return (await api_call("/api/wiki/changes")).json();
 	} else {
 		return JSON.parse(localStorage.getItem('page_changelog'));
 	}
@@ -110,5 +107,5 @@ export async function wiki_cache(progress_callback) {
 
 	localStorage.setItem('page_list', JSON.stringify(current_pages));
 	// TODO
-	// localStorage.setItem("page_changelog", JSON.stringify(await wiki_changelog()));
+	localStorage.setItem("page_changelog", JSON.stringify(await wiki_changelog()));
 }

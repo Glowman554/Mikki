@@ -8,6 +8,16 @@
 	onMount(async () => {
 		changelog = await wiki_changelog();
 	});
+
+	function changeToString(change) {
+		console.log(change)
+		switch (change.change) {
+			case "create":
+				return `${change.username} hat ${change.title} erstelt!`;
+			case "change":
+				return `${change.username} hat ${change.title} geändert!`;
+		}
+	}
 </script>
 
 <svelte:head>
@@ -24,10 +34,10 @@
 				<th>Zeitpunkt</th>
 			</tr>
 
-			{#each changelog.reverse() as entry}
+			{#each changelog as entry}
 				<tr>
-					<td>{entry.what}</td>
-					<td>{dateToString(entry.when)}</td>
+					<td>{changeToString(entry)}</td>
+					<td>{dateToString(entry.timestamp)}</td>
 				</tr>
 			{/each}
 		</table>

@@ -19,9 +19,10 @@
 				}
 				let res = await wiki_create(title, text).catch((err) => {
 					alert('Ups, die Datei konnte nicht gespeichert werden! Vielleicht ist sie zu groß?');
+				}).then(() => {
+					// window.location.href = "/wiki/view#" + res.page_id;
+					redirect('/');
 				});
-				// window.location.href = "/wiki/view#" + res.page_id;
-				redirect('/');
 			});
 		} else {
 			alert('Der Titel darf nicht leer sein.');
