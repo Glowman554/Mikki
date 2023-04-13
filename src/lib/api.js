@@ -54,11 +54,8 @@ export async function wiki_list() {
 	}
 }
 
-export async function wiki_delete(token, page_id) {
-	const res = await fetch(base_api + '/wiki/page/delete?token=' + token + '&page_id=' + page_id);
-	var json = await res.json();
-	throw_if_error(json);
-	return json;
+export async function wiki_delete(page_id) {
+	return (await api_call("/api/wiki/delete", "id=" + page_id)).text();
 }
 
 export async function wiki_changelog() {

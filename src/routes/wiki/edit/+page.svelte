@@ -2,7 +2,7 @@
 	import { wiki_edit, wiki_get } from '$lib/api.js';
 	import { redirect, toBase64 } from '$lib/helper.js';
 	import { onMount } from 'svelte';
-	import { initialize, logout, login } from '$lib/thorax.js';
+	import { initialize } from '$lib/thorax.js';
 
 	let id = '';
 	let page = {

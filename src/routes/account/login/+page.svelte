@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	import { initialize, logout, login } from '$lib/thorax.js';
+	import { initialize, logout, login, delete_account } from '$lib/thorax.js';
 
 	let emailInput;
 	let passwordInput;
@@ -20,7 +20,6 @@
 	async function _delete() {
 		if (await confirm('Account löschen? Es gibt kein zurück mehr!')) {
 			await delete_account();
-			location.reload();
 		}
 	}
 </script>

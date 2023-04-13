@@ -85,3 +85,11 @@ export function logout() {
 		})
 	);
 }
+
+export function delete_account() {
+	api_call("/api/user/delete").then(e => e.text().then(e => {
+		// localStorage.removeItem('token');
+		// localStorage.removeItem('user');
+		// location.reload();
+	}));
+}

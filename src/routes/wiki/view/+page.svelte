@@ -6,6 +6,7 @@
 	} from '$lib/api';
 	import { dateToString, redirect, render_graph } from '$lib/helper.js';
 	import { onMount } from 'svelte';
+	import { initialize } from '$lib/thorax.js';
 	import SvelteMarkdown from 'svelte-markdown';
 
 	let id = '';
@@ -20,15 +21,15 @@
 	});
 
 	const deleteWiki = async () => {
-		has_valid_token().then(async (result) => {
-			if (!result) {
+		initialize().then(async (user) => {
+			if (!user) {
 				alert('You need to login first!');
 				return;
 			}
 			if (await confirm('Seite löschen? Es gibt kein zurück mehr!')) {
-				if (result) {
-					wiki_delete(get_api_token(), data.page_id).then(() => {
-						redirect("/")
+				if (user.admin) {
+					wiki_delete(data.id).then(() => {
+						redirect("/");
 					});
 				} else {
 					alert("You don't have permission to delete this wiki page");
