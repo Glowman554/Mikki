@@ -1,0 +1,120 @@
+From c175379194fa013d8b6f3fe8b26a2dd6bce9776c Mon Sep 17 00:00:00 2001
+From: Glowman554 <glowman434@gmail.com>
+Date: Thu, 13 Apr 2023 23:32:49 +0200
+Subject: [PATCH] wiki path patch
+
+---
+ src/app.html     | 10 +++++-----
+ static/font.css  | 12 ++++++------
+ svelte.config.js |  6 +++---
+ 3 files changed, 14 insertions(+), 14 deletions(-)
+
+diff --git a/src/app.html b/src/app.html
+index a3de035..dae6bb5 100644
+--- a/src/app.html
++++ b/src/app.html
+@@ -1,8 +1,8 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ 	<head>
+-		<script src="/commit.js"></script>
+-		<script src="/mermaid.min.js"></script>
++		<script src="/wiki/commit.js"></script>
++		<script src="/wiki/mermaid.min.js"></script>
+ 		<script>
+ 			if (window.__TAURI__) {
+ 				window['__' + 'TAURI__INVOKE_KEY_TOKEN__'] = window['__' + 'TAURI_INVOKE_KEY__'];
+@@ -52,13 +52,13 @@
+ 			name="description"
+ 			content="Wiki ist ein Wiki, erstellt um die Assemblerprogrammierung im Schulunterricht zu dokumentieren."
+ 		/>
+-		<link rel="icon" href="/favicon.png" />
++		<link rel="icon" href="/wiki/favicon.png" />
+ 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+ 		<!-- Apple -->
+ 		<meta name="apple-mobile-web-app-title" content="Wiki" />
+-		<link rel="apple-touch-icon" href="/ios-icon.png" />
++		<link rel="apple-touch-icon" href="/wiki/ios-icon.png" />
+ 		<style>
+-			@import url('/font.css');
++			@import url('/wiki/font.css');
+ 		</style>
+ 		%sveltekit.head%
+ 	</head>
+diff --git a/static/font.css b/static/font.css
+index 1914c3a..0229a65 100644
+--- a/static/font.css
++++ b/static/font.css
+@@ -4,7 +4,7 @@
+ 	font-style: normal;
+ 	font-weight: 300;
+ 	font-display: swap;
+-	src: url(/jetbrains_mono/cyrillic_ext.woff2) format('woff2');
++	src: url(/wiki/jetbrains_mono/cyrillic_ext.woff2) format('woff2');
+ 	unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+ }
+ /* cyrillic */
+@@ -13,7 +13,7 @@
+ 	font-style: normal;
+ 	font-weight: 300;
+ 	font-display: swap;
+-	src: url(/jetbrains_mono/cyrillic.woff2) format('woff2');
++	src: url(/wiki/jetbrains_mono/cyrillic.woff2) format('woff2');
+ 	unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+ }
+ /* greek */
+@@ -22,7 +22,7 @@
+ 	font-style: normal;
+ 	font-weight: 300;
+ 	font-display: swap;
+-	src: url(/jetbrains_mono/greek.woff2) format('woff2');
++	src: url(/wiki/jetbrains_mono/greek.woff2) format('woff2');
+ 	unicode-range: U+0370-03FF;
+ }
+ /* vietnamese */
+@@ -31,7 +31,7 @@
+ 	font-style: normal;
+ 	font-weight: 300;
+ 	font-display: swap;
+-	src: url(/jetbrains_mono/vietnamese.woff2) format('woff2');
++	src: url(/wiki/jetbrains_mono/vietnamese.woff2) format('woff2');
+ 	unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0,
+ 		U+1EA0-1EF9, U+20AB;
+ }
+@@ -41,7 +41,7 @@
+ 	font-style: normal;
+ 	font-weight: 300;
+ 	font-display: swap;
+-	src: url(/jetbrains_mono/latin_ext.woff2) format('woff2');
++	src: url(/wiki/jetbrains_mono/latin_ext.woff2) format('woff2');
+ 	unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113,
+ 		U+2C60-2C7F, U+A720-A7FF;
+ }
+@@ -51,7 +51,7 @@
+ 	font-style: normal;
+ 	font-weight: 300;
+ 	font-display: swap;
+-	src: url(/jetbrains_mono/latin.woff2) format('woff2');
++	src: url(/wiki/jetbrains_mono/latin.woff2) format('woff2');
+ 	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F,
+ 		U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+ }
+diff --git a/svelte.config.js b/svelte.config.js
+index 501ece5..3fd7cb4 100644
+--- a/svelte.config.js
++++ b/svelte.config.js
+@@ -8,8 +8,8 @@ export default {
+ 			fallback: null,
+ 			precompress: false
+ 		}),
+-		// paths: {
+-		// 	base: "/"
+-		// }
++		paths: {
++			base: "/wiki"
++		}
+ 	}
+ };
+-- 
+2.39.2.windows.1
+

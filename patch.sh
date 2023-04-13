@@ -1,0 +1,1 @@
+git am < 0001-wiki-path-patch.patch
