@@ -4,6 +4,7 @@
 	import SvelteMarkdown from 'svelte-markdown';
 	import { slide } from 'svelte/transition';
 	import { onMount } from 'svelte';
+	import { base } from '$app/paths';
 
 	let data = [];
 	let oldData = [];
@@ -65,7 +66,7 @@
 				}}
 			/>
 			<label for={page.id}>▶︎</label>
-			<a href="/wiki/view#{page.id}" id={page.name} data-sveltekit-prefetch>{page.name}</a>
+			<a href="{base}/wiki/view#{page.id}" id={page.name} data-sveltekit-prefetch>{page.name}</a>
 			<span
 				title="link kopieren"
 				on:click={() => {

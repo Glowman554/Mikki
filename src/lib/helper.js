@@ -1,5 +1,5 @@
 import { toast } from '@zerodevx/svelte-toast';
-
+import { base } from "$app/paths";
 export const weburl = 'https://www.mikki.gq';
 
 export function dateToString(date) {
@@ -38,7 +38,7 @@ export function redirect(url) {
 	//     document.body.appendChild(link);
 	//     link.click();
 	// } else {
-	window.location.href = url;
+	window.location.href = base + url;
 	// }
 }
 

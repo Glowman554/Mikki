@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { initialize, logout, login, delete_account } from '$lib/thorax.js';
+	import { base } from "$app/paths";
 
 	let emailInput;
 	let passwordInput;
@@ -63,7 +64,7 @@
 					}}
 				/>
 				<label class="viewPasswordLabel" for="togglePassword"
-					><img src="/showPassword.svg" alt="show" /></label
+					><img src="{base}/showPassword.svg" alt="show" /></label
 				><br />
 			</div>
 

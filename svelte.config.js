@@ -7,6 +7,9 @@ export default {
 			assets: 'build',
 			fallback: null,
 			precompress: false
-		})
+		}),
+		paths: {
+			base: "/"
+		}
 	}
 };

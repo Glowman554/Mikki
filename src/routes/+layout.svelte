@@ -5,6 +5,7 @@
 	import { onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
 	import { SvelteToast } from '@zerodevx/svelte-toast';
+	import { base } from "$app/paths";
 
 	let innerWidth = 0;
 	let showHamburger = false;
@@ -12,11 +13,11 @@
 	let cacheRunning = true;
 
 	const nav = [
-		{ title: 'Home', path: '/' },
-		{ title: 'Erstellen', path: '/wiki/create' },
-		{ title: 'Log', path: '/wiki/changes' },
-		{ title: 'Einstellungen', path: '/settings' },
-		{ title: 'Login', path: '/account/login' },
+		{ title: 'Home', path: base + '/' },
+		{ title: 'Erstellen', path: base + '/wiki/create' },
+		{ title: 'Log', path: base + '/wiki/changes' },
+		{ title: 'Einstellungen', path: base + '/settings' },
+		{ title: 'Login', path: base + '/account/login' },
 	];
 
 	onMount(async () => {
@@ -41,7 +42,7 @@
 <body>
 	<SvelteToast />
 	<nav>
-		<a class="heading" class:running={cacheRunning} href="/" data-sveltekit-prefetch
+		<a class="heading" class:running={cacheRunning} href="{base}/" data-sveltekit-prefetch
 			>AssemblerWiki</a
 		>
 		{#if innerWidth >= 850}
@@ -57,7 +58,7 @@
 			</div>
 		{:else}
 			<input type="checkbox" id="toggle" bind:checked={showHamburger} />
-			<label for="toggle"><img src="/menu.svg" alt="Menu" /></label>
+			<label for="toggle"><img src="{base}/menu.svg" alt="Menu" /></label>
 		{/if}
 	</nav>
 	{#if showHamburger}

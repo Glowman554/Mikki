@@ -4,6 +4,7 @@
 		wiki_get,
 		wiki_get_download
 	} from '$lib/api';
+	import { base } from "$app/paths";
 	import { dateToString, redirect, render_graph } from '$lib/helper.js';
 	import { onMount } from 'svelte';
 	import { initialize } from '$lib/thorax.js';
@@ -64,14 +65,14 @@
 
 			<div class="buttons">
 				<img
-					src="/edit.svg"
+					src="{base}/edit.svg"
 					alt="edit"
 					title="Editieren"
 					on:click={() => {
 						redirect('/wiki/edit#' + data.id);
 					}}
 				/>
-				<img src="/trash.svg" alt="delete" on:click={deleteWiki} title="Löschen" />
+				<img src="{base}/trash.svg" alt="delete" on:click={deleteWiki} title="Löschen" />
 			</div>
 		</nav>
 		<hr />
