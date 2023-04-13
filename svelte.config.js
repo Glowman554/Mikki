@@ -8,8 +8,8 @@ export default {
 			fallback: null,
 			precompress: false
 		}),
-		paths: {
-			base: "/"
-		}
+		// paths: {
+		// 	base: "/"
+		// }
 	}
 };
