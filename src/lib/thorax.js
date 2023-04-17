@@ -1,4 +1,4 @@
-var base_api = 'https://cloud.glowman554.gq';
+var base_api = 'https://cloud.glowman554.de';
 
 let user_cache = undefined;
 
